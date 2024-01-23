@@ -20,4 +20,4 @@ General structure is based off of [RedditVideoGenerator](https://github.com/Shif
 
 - You need to create an app on Reddit to obtain the keys for the config. Rename `EXAMPLE_CONFIG.ini` to `config.ini`.
 - You may need to associate a YouTube account with this code for video downloads.
-- Install dependencies as needed. A `requirements.txt` will be provided in the future.
+- Install dependencies as needed using `requirements.txt`.
