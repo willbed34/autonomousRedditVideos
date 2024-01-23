@@ -1,18 +1,23 @@
-General structure is based off of https://github.com/Shifty-The-Dev/RedditVideoGenerator
+# Project Name
 
-#HOW TO USE
-Use get_gameplay_video to download Youtube background video under Creative Commons. It will save it in background_videos.
-Then, in the config file, specify the reddit client and secret, as well as other things such as number of comments you want to obtain, as well as if you want to manually select which post from a list. Also specify a subreddit.
-Then run main. This will get the reddit post, make images of the text, get the voiceovers, and then compile it on top of the background video.
+General structure is based off of [RedditVideoGenerator](https://github.com/Shifty-The-Dev/RedditVideoGenerator).
 
-#Changes:
-Added code to get background video.
-Pyttsx3 wasn't working, so I switched to mimic3.
-Capturing screenshots wasn't working, so I generate text images based on the reddit words.
-Splitting up texts into phrases, so that the text doesnt cover whole screen.
-Removed VLC preview.
+## How to Use
 
-#Things to note:
-You need to make and app on reddit to get the keys to put in the config. Rename EXAMPLE_CONFIG.ini to config.ini.
-You may also need to associate a Youtube account with this code, so that it can download the videos.
-Also, be sure to install dependencies as needed. Will work on getting a requirements.txt in the future.
+1. Use `get_gameplay_video` to download a Youtube background video under Creative Commons. It will save it in the `background_videos` directory.
+2. In the config file, specify the Reddit client and secret, along with other parameters such as the number of comments you want to obtain and whether you want to manually select a post from a list. Also, specify a subreddit.
+3. Run `main.py`. This will get the Reddit post, generate images of the text, obtain voiceovers, and then compile everything on top of the background video.
+
+## Changes
+
+- Added code to download the background video.
+- Switched from Pyttsx3 to mimic3 as Pyttsx3 wasn't working.
+- Text images are generated based on the Reddit words as capturing screenshots wasn't working.
+- Splitting up texts into phrases to avoid covering the whole screen.
+- Removed VLC preview.
+
+## Things to Note
+
+- You need to create an app on Reddit to obtain the keys for the config. Rename `EXAMPLE_CONFIG.ini` to `config.ini`.
+- You may need to associate a YouTube account with this code for video downloads.
+- Install dependencies as needed. A `requirements.txt` will be provided in the future.
