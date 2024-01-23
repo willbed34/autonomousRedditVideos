@@ -1,0 +1,7 @@
+voiceovers/
+screenshots/
+finished_videos/
+background_videos/
+config.ini
+geckodriver.log
+__pycache__/
