@@ -15,6 +15,7 @@ General structure is based off of [RedditVideoGenerator](https://github.com/Shif
 - Text images are generated based on the Reddit words as capturing screenshots wasn't working.
 - Splitting up texts into phrases to avoid covering the whole screen.
 - Removed VLC preview.
+- Added ability to speed up audio.
 
 ## Things to Note
 
