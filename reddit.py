@@ -79,6 +79,9 @@ def __getContentFromPost(submission) -> VideoScript:
         voice_to_use = random.choice(voices)
         comment_text = comment.body
         comment_id = comment.id
+        if comment_text == "[removed]":
+            print("found a comment removed")
+            continue
         raw_text = markdown_to_text.markdown_to_text(comment_text)
         #if too many words
         wordCount = len(raw_text.split())
@@ -111,8 +114,9 @@ def make_subcomments(comment):
 
     # Remove empty strings from the list
     new_comments = [substring.strip() for substring in new_comments if substring.strip()]
-
+    print("New comments: ", new_comments)
+    if len(new_comments) == 1:
+        return new_comments
     #so that the punctuation is joined with the text
     new_comments = [new_comments[i] + new_comments[i + 1] for i in range(0, len(new_comments), 2)]
-
     return new_comments

@@ -8,12 +8,12 @@ def download_and_crop_youtube_video(video_url, max_duration=60):
     try:
         output_dir = 'background_videos'
         os.makedirs(output_dir, exist_ok=True)
-        files_count = len([f for f in os.listdir(output_dir) if os.path.isfile(os.path.join(output_dir, f))])
+        files_count = len([f for f in os.listdir(output_dir) if os.path.isfile(os.path.join(output_dir, f))]) - 1
         video_name = "cropped_video_" + str(files_count) + ".mp4"
         # Download YouTube video
         yt = YouTube(video_url)
         stream = yt.streams.filter(file_extension='mp4', res='720p').first()
-        video_file = stream.download(output_dir, filename=video_name)
+        video_file = stream.download(output_dir, filename="og_video.mp4")
 
         # Trim the video to at most one minute from the middle
         clip = VideoFileClip(video_file)
@@ -33,6 +33,8 @@ def download_and_crop_youtube_video(video_url, max_duration=60):
         # final_clip = final_clip.set_audio(None)
         print("dim: ", final_clip.size)
         output_path = os.path.join(output_dir, video_name)
+        path_to_remove = os.path.join(output_dir, "og_video.mp4")
+        os.remove(path_to_remove)
 
         final_clip.write_videofile(output_path, codec="libx264", audio_codec="aac")
 
@@ -44,7 +46,7 @@ def download_and_crop_youtube_video(video_url, max_duration=60):
 
 if __name__ == "__main__":
     startTime = time.time()
-    youtube_url = "https://www.youtube.com/watch?v=b5WwymCBwEc"
+    youtube_url = "https://www.youtube.com/watch?v=mmCJMY7SLUo"
     download_and_crop_youtube_video(youtube_url)
     endTime = time.time()
     print(f"Total time: {endTime - startTime}")

@@ -20,6 +20,8 @@ class VideoScript:
         self.fileName = f"{datetime.today().strftime('%Y-%m-%d')}-{fileId}"
         self.url = url
         self.title = title
+        #TODO add "story mode", where its just the post, not the comments
+        # if NumberComments == 0
         self.titleAudioClip = self.__createVoiceOver("title", title, "en_US/hifi-tts_low")
 
     def addCommentScene(self, text, commentId, voice_type = "en_US/hifi-tts_low") -> None:

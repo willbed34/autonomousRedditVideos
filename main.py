@@ -53,7 +53,6 @@ def createVideo():
 
     clips.append(__createClip(script.titleSCFile, script.titleAudioClip, marginSize))
     for comment in script.frames:
-        print("COMMENT ID: ", comment.screenShotFile)
         clips.append(__createClip(comment.screenShotFile, comment.audioClip, marginSize))
 
     # Merge clips into single track
