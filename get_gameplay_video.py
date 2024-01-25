@@ -46,7 +46,7 @@ def download_and_crop_youtube_video(video_url, max_duration=60):
 
 if __name__ == "__main__":
     startTime = time.time()
-    youtube_url = "https://www.youtube.com/watch?v=mmCJMY7SLUo"
+    youtube_url = "https://www.youtube.com/watch?v=DuR7ZF_hR4w"
     download_and_crop_youtube_video(youtube_url)
     endTime = time.time()
     print(f"Total time: {endTime - startTime}")

@@ -21,4 +21,10 @@ General structure is based off of [RedditVideoGenerator](https://github.com/Shif
 
 - You need to create an app on Reddit to obtain the keys for the config. Rename `EXAMPLE_CONFIG.ini` to `config.ini`.
 - You may need to associate a YouTube account with this code for video downloads.
+- Create venv
 - Install dependencies as needed using `requirements.txt`.
+
+## TODO
+- Automate background video capturing, select from a few categories like csgo, minecraft, fortnite, gta, using selection or randomizing.
+- Find best subreddits for selection that are more Q/A based.
+- Enable "story mode", where most of text is in original post.
