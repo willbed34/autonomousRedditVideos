@@ -23,14 +23,16 @@ def createVideo():
     # Create screenshots
     print("Starting to create screenshots.")
     screenshot.getPostScreenshots(fileName, script)
-
     # Setup background clip
     print("Getting background clip.")
     bgDir = config["General"]["BackgroundDirectory"]
     bgPrefix = config["General"]["BackgroundFilePrefix"]
-    bgFiles = [f for f in listdir(bgDir) if isfile(join(bgDir, f))]
+    bgFiles = [f for f in listdir(bgDir) if isfile(join(bgDir, f)) and not f.startswith('.')]
+    print("These are the files: ", bgFiles)
     bgCount = len(bgFiles)
     bgIndex = random.randint(0, bgCount-1)
+    print("This many BG files: ", bgCount)
+    print("This index: ", bgIndex)
     backgroundVideo = VideoFileClip(
         filename=f"{bgDir}/{bgPrefix}{bgIndex}.mp4", 
         audio=False).subclip(0, script.getDuration())

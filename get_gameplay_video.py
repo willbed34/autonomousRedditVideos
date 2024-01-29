@@ -30,13 +30,13 @@ def download_and_crop_youtube_video(video_url, max_duration=60):
         print("dim: ", cropped_clip.size)
         final_clip = cropped_clip.resize(width=1080)
         # Set the volume to zero
-        # final_clip = final_clip.set_audio(None)
+        final_clip = final_clip.set_audio(None)
         print("dim: ", final_clip.size)
         output_path = os.path.join(output_dir, video_name)
         path_to_remove = os.path.join(output_dir, "og_video.mp4")
         os.remove(path_to_remove)
 
-        final_clip.write_videofile(output_path, codec="libx264", audio_codec="aac")
+        final_clip.write_videofile(output_path, codec="libx264", audio_codec=None)
 
         print(f"Video downloaded, trimmed, and cropped successfully to {output_path}")
         return output_path
@@ -46,7 +46,8 @@ def download_and_crop_youtube_video(video_url, max_duration=60):
 
 if __name__ == "__main__":
     startTime = time.time()
-    youtube_url = "https://www.youtube.com/watch?v=DuR7ZF_hR4w"
-    download_and_crop_youtube_video(youtube_url)
+    # youtube_url = "https://www.youtube.com/watch?v=b5WwymCBwEc"
+    # download_and_crop_youtube_video(youtube_url)
+    download_and_crop_youtube_video("https://www.youtube.com/watch?v=fPflaU71dCY")
     endTime = time.time()
     print(f"Total time: {endTime - startTime}")

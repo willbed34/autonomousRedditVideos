@@ -6,6 +6,8 @@ import time
 from videoscript import VideoScript
 import configparser
 import random
+from profanity_check import predict, predict_prob
+import constants
 
 config = configparser.ConfigParser()
 config.read('config.ini')
@@ -75,13 +77,19 @@ def __getContentFromPost(submission) -> VideoScript:
     for comment in submission.comments:
         if number_done >= NUMBER_COMMENTS:
             break
-        voices = ["en_UK/apope_low", "en_US/cmu-arctic_low", "en_US/hifi-tts_low", "en_US/ljspeech_low", "en_US/m-ailabs_low", "en_US/vctk_low"]
-        voice_to_use = random.choice(voices)
+        voice_to_use = random.choice(constants.voices)
         comment_text = comment.body
         comment_id = comment.id
         if comment_text == "[removed]":
             print("found a comment removed")
             continue
+        if comment_text == "[deleted]":
+            print("found a comment deleted")
+            continue
+        if contains_curse_words(comment_text):
+            print(f"Skipping comment: {comment_text}")
+            continue
+        comment_text = remove_links(comment_text)
         raw_text = markdown_to_text.markdown_to_text(comment_text)
         #if too many words
         wordCount = len(raw_text.split())
@@ -89,13 +97,11 @@ def __getContentFromPost(submission) -> VideoScript:
             continue
         #split into 3s
         new_comments = make_subcomments(comment_text)
-        for new_id, new_comment in enumerate(new_comments):
 
+        for new_id, new_comment in enumerate(new_comments):
             content.addCommentScene(new_comment, comment_id+str(new_id), voice_to_use)
 
         number_done += 1
-        # print("Original comment: ", comment)
-        # print("New comments: ", new_comments)
     return content
 
 def __getExistingPostIds(outputDir):
@@ -107,16 +113,32 @@ def __getExistingPostIds(outputDir):
 
 def make_subcomments(comment):
     new_comments = []
-    pattern = re.compile(r'([.!,;:?]+)')
+    pattern = re.compile(r'([.!,;?]+)')
 
     # Use the pattern to split the text
     new_comments = re.split(pattern, comment)
 
     # Remove empty strings from the list
     new_comments = [substring.strip() for substring in new_comments if substring.strip()]
-    print("New comments: ", new_comments)
     if len(new_comments) == 1:
         return new_comments
     #so that the punctuation is joined with the text
-    new_comments = [new_comments[i] + new_comments[i + 1] for i in range(0, len(new_comments), 2)]
+    new_comments = create_pairs(new_comments)
     return new_comments
+
+def create_pairs(input_list):
+    pairs = []
+    # Iterate through the list in steps of 2
+    for i in range(0, len(input_list) - 1, 2):
+        pairs.append(input_list[i] + input_list[i + 1])
+    # If the list has an odd length, add the last element as a single element
+    if len(input_list) % 2 != 0:
+        pairs.append(input_list[-1],)
+    return pairs
+
+def remove_links(text):
+    # Remove links from the text using regular expression
+    return re.sub(r'http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\\(\\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+', '', text)
+
+def contains_curse_words(text):
+    return predict([text])[0] == 1

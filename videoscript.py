@@ -39,6 +39,7 @@ class VideoScript:
         file_path = voiceover.create_voice_over(f"{self.fileName}-{name}", text, voice_type)
         audioClip = AudioFileClip(file_path)
         if (self.totalDuration + audioClip.duration > MAX_DURATION):
+            print("Its too long: ", name)
             return None
         self.totalDuration += audioClip.duration
         return audioClip
