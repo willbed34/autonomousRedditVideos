@@ -29,5 +29,11 @@ slow_voices = [
     "en_US/cmu-arctic_low#eka", #slow
     "en_US/hifi-tts_low#6097", #slow
     "en_US/ljspeech_low", #slow
+]
 
+gameplay_options = [
+    "cs go surfing free free to use",
+    "fortnite snipes free to use",
+    "minecraft parkour free free to use",
+    "roblox obby free to use"
 ]

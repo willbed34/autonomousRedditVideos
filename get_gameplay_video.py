@@ -3,6 +3,33 @@ from moviepy.editor import VideoFileClip
 from moviepy.video.fx.all import crop
 import os
 import time
+import random
+from get_youtube_link import get_youtube_link
+
+def auto_download_and_crop_youtube_video(max_duration=60):
+    output_dir = 'background_videos'
+    os.makedirs(output_dir, exist_ok=True)
+    files_count = len([f for f in os.listdir(output_dir) if os.path.isfile(os.path.join(output_dir, f))]) - 1
+    
+    # Download YouTube video
+    video_url = get_youtube_link()
+    if video_url == None:
+        return None
+    yt = YouTube(video_url)
+    stream = yt.streams.filter(file_extension='mp4', res='720p').first()
+    video_file = stream.download(output_dir, filename="og_video.mp4")
+
+    # Trim the video to at most one minute from the middle
+    clip = VideoFileClip(video_file)
+    video_name = "background.mp4"
+    start_time = random.uniform(5, clip.duration - max_duration)
+    end_time = start_time + max_duration
+    trimmed_clip = clip.subclip(start_time, end_time)
+    process_and_save_clip(trimmed_clip, output_dir, video_name)
+    
+    os.remove(os.path.join(output_dir, "og_video.mp4"))
+    print(f"Video downloaded, trimmed, and cropped successfully to {output_dir}")
+    return os.path.join(output_dir, video_name)
 
 def download_and_crop_youtube_video(video_url, max_duration=60, split_video=False):
     try:
@@ -27,8 +54,8 @@ def download_and_crop_youtube_video(video_url, max_duration=60, split_video=Fals
                 process_and_save_clip(part_clip, output_dir, video_name)
         else:
             video_name = "cropped_video_" + str(files_count) + ".mp4"
-            start_time = max(0, clip.duration // 2 - max_duration / 2)
-            end_time = min(clip.duration, clip.duration // 2 + max_duration / 2)
+            start_time = random.uniform(5, clip.duration - max_duration)
+            end_time = start_time + max_duration
             trimmed_clip = clip.subclip(start_time, end_time)
             process_and_save_clip(trimmed_clip, output_dir, video_name)
         
@@ -58,6 +85,6 @@ if __name__ == "__main__":
     startTime = time.time()
     # youtube_url = "https://www.youtube.com/watch?v=b5WwymCBwEc"
     # download_and_crop_youtube_video(youtube_url)
-    download_and_crop_youtube_video("https://www.youtube.com/watch?v=XT7TwkOf2Qs", max_duration=60, split_video=True)
+    download_and_crop_youtube_video("https://www.youtube.com/watch?v=R0b-VFV8SJ8", max_duration=60, split_video=True)
     endTime = time.time()
     print(f"Total time: {endTime - startTime}")

@@ -2,14 +2,15 @@ from moviepy.editor import *
 import reddit, screenshot, time, subprocess, random, configparser, sys, math
 from os import listdir
 from os.path import isfile, join
+from get_gameplay_video import auto_download_and_crop_youtube_video
 
 def createVideo():
     config = configparser.ConfigParser()
     config.read('config.ini')
     outputDir = config["General"]["OutputDirectory"]
     os.makedirs(outputDir, exist_ok=True)
-
     startTime = time.time()
+
 
     # Get script from reddit
     # If a post id is listed, use that. Otherwise query top posts
@@ -25,17 +26,29 @@ def createVideo():
     screenshot.getPostScreenshots(fileName, script)
     # Setup background clip
     print("Getting background clip.")
-    bgDir = config["General"]["BackgroundDirectory"]
-    bgPrefix = config["General"]["BackgroundFilePrefix"]
-    bgFiles = [f for f in listdir(bgDir) if isfile(join(bgDir, f)) and not f.startswith('.')]
-    print("These are the files: ", bgFiles)
-    bgCount = len(bgFiles)
-    bgIndex = random.randint(0, bgCount-1)
-    print("This many BG files: ", bgCount)
-    print("This index: ", bgIndex)
-    backgroundVideo = VideoFileClip(
-        filename=f"{bgDir}/{bgPrefix}{bgIndex}.mp4", 
+    #trying automatically
+    bg_video_path  = auto_download_and_crop_youtube_video()
+    print("Getting this file path: ", bg_video_path)
+    if bg_video_path == None:
+        print("Couldn't find youtube vid link, going to predownloaded ones")
+        bgDir = config["General"]["BackgroundDirectory"]
+        bgPrefix = config["General"]["BackgroundFilePrefix"]
+        bgFiles = [f for f in listdir(bgDir) if isfile(join(bgDir, f)) and not f.startswith('.')]
+        # print("These are the files: ", bgFiles)
+        bgCount = len(bgFiles)
+        bgIndex = random.randint(0, bgCount-1)
+        print("This many BG files: ", bgCount)
+        print("This index: ", bgIndex)
+        backgroundVideo = VideoFileClip(
+            filename=f"{bgDir}/{bgPrefix}{bgIndex}.mp4", 
+            audio=False).subclip(0, script.getDuration())
+    else:
+        backgroundVideo = VideoFileClip(
+        filename=bg_video_path, 
         audio=False).subclip(0, script.getDuration())
+    print("Just got video")
+    
+
     w, h = backgroundVideo.size
 
     def __createClip(screenShotFile, audioClip, marginSize):

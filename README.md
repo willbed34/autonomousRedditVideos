@@ -4,7 +4,7 @@ General structure is based off of [RedditVideoGenerator](https://github.com/Shif
 
 ## How to Use
 
-1. Use `get_gameplay_video` to download a Youtube background video under Creative Commons. It will save it in the `background_videos` directory.
+1. Use `get_gameplay_video` to download a Youtube background video under Creative Commons. It will save it in the `background_videos` directory. Specify the length of the video, and if you want just one background video created, or multiple (use multiple if the raw video is longer).
 2. In the config file, specify the Reddit client and secret, along with other parameters such as the number of comments you want to obtain and whether you want to manually select a post from a list. Also, specify a subreddit.
 3. Run `main.py`. This will get the Reddit post, generate images of the text, obtain voiceovers, and then compile everything on top of the background video.
 
@@ -25,9 +25,9 @@ General structure is based off of [RedditVideoGenerator](https://github.com/Shif
 - Install dependencies as needed using `requirements.txt`.
 
 ## TODO
-- Automate background video capturing, select from a few categories like csgo, minecraft, fortnite, gta, using selection or randomizing.
+- Automate background video capturing, select from a few categories like csg surfing, minecraft, fortnite, gta, using selection or randomizing.
 - Find best subreddits for selection that are more Q/A based.
-- Enable "story mode", where most of text is in original post.
+- Enable "story mode", where most of text is in original post, thus we won't need to get comments, but would need to split original post.
 - Fix error when repeated quotation in a comment
 - Maybe make dictionary, mapping subreddits to config specs. For isntance, 2 sentence horror would have diff config than askreddit.
 - Put screenshots and voiceovers into subfolders for a given post
