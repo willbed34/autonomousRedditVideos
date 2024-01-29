@@ -27,7 +27,11 @@ class VideoScript:
     def addCommentScene(self, text, commentId, voice_type = "en_US/hifi-tts_low") -> None:
         frame = ScreenshotScene(text, commentId)
         frame.audioClip = self.__createVoiceOver(commentId, text, voice_type)
-        self.frames.append(frame)
+        if frame.audioClip == None:
+            #too long
+            print("frame was too long")
+        else:
+            self.frames.append(frame)
 
     def getDuration(self):
         return self.totalDuration
