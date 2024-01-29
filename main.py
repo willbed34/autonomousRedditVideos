@@ -32,15 +32,8 @@ def createVideo():
     if bg_video_path == None:
         print("Couldn't find youtube vid link, going to predownloaded ones")
         bgDir = config["General"]["BackgroundDirectory"]
-        bgPrefix = config["General"]["BackgroundFilePrefix"]
-        bgFiles = [f for f in listdir(bgDir) if isfile(join(bgDir, f)) and not f.startswith('.')]
-        # print("These are the files: ", bgFiles)
-        bgCount = len(bgFiles)
-        bgIndex = random.randint(0, bgCount-1)
-        print("This many BG files: ", bgCount)
-        print("This index: ", bgIndex)
         backgroundVideo = VideoFileClip(
-            filename=f"{bgDir}/{bgPrefix}{bgIndex}.mp4", 
+            filename=f"{bgDir}/cropped_video_0.mp4", 
             audio=False).subclip(0, script.getDuration())
     else:
         backgroundVideo = VideoFileClip(
@@ -96,6 +89,22 @@ def createVideo():
 
     print("Video is ready to upload!")
     print(f"Title: {script.title}  File: {outputFile}")
+    print("Starting cleanup...")
+    print("Removing screenshots...")
+    try:
+        os.rmdir("screenshots")
+    except FileNotFoundError:
+        print(f"The directory 'screenshots' does not exist.")
+    except OSError as e:
+        print(f"Error while removing directory screenshots: {e}")
+
+    print("Removing voiceovers...")
+    try:
+        os.rmdir("voiceovers")
+    except FileNotFoundError:
+        print(f"The directory 'voiceovers' does not exist.")
+    except OSError as e:
+        print(f"Error while removing directory voiceovers: {e}")
     endTime = time.time()
     print(f"Total time: {endTime - startTime}")
 

@@ -30,8 +30,8 @@ def get_youtube_link():
     results = YoutubeSearch(query, max_results=10).to_dict()
     for result in results:
         length_in_seconds = time_to_seconds(result["duration"])
-        if length_in_seconds < 60 or length_in_seconds > 240:
-            print("not right length")
+        if length_in_seconds < 60 or length_in_seconds > 600:
+            print("video not right length")
             continue
         url = f"https://youtube.com{result['url_suffix']}"
         print("Getting: ", result["title"])
