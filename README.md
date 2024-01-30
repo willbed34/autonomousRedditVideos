@@ -25,10 +25,10 @@ General structure is based off of [RedditVideoGenerator](https://github.com/Shif
 - Install dependencies as needed using `requirements.txt`.
 
 ## TODO
-- Automate background video capturing, select from a few categories like csg surfing, minecraft, fortnite, gta, using selection or randomizing.
+- Automate background video capturing, select from a few categories like csg surfing, minecraft, fortnite, gta, using selection or randomizing. Now, we don't need to store background videos. DONE
 - Find best subreddits for selection that are more Q/A based.
 - Enable "story mode", where most of text is in original post, thus we won't need to get comments, but would need to split original post.
-- Fix error when repeated quotation in a comment
+- Fix error when repeated quotation in a comment.
 - Maybe make dictionary, mapping subreddits to config specs. For isntance, 2 sentence horror would have diff config than askreddit.
-- Put screenshots and voiceovers into subfolders for a given post
-- If duration exceeds, don't return none, have it handle accordingly
+- ~~Put screenshots and voiceovers into subfolders for a given post~~ Instead I just delete these directories afterwards. DONE
+- If duration exceeds, don't return none, have it handle accordingly. DONE
