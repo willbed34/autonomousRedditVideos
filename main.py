@@ -3,6 +3,7 @@ import reddit, screenshot, time, subprocess, random, configparser, sys, math
 from os import listdir
 from os.path import isfile, join
 from get_gameplay_video import auto_download_and_crop_youtube_video
+import shutil
 
 def createVideo():
     config = configparser.ConfigParser()
@@ -91,20 +92,24 @@ def createVideo():
     print(f"Title: {script.title}  File: {outputFile}")
     print("Starting cleanup...")
     print("Removing screenshots...")
+    screenshots_dir = "screenshots"
     try:
-        os.rmdir("screenshots")
+        shutil.rmtree(screenshots_dir)
+        print(f"Removed directory: {screenshots_dir}")
     except FileNotFoundError:
-        print(f"The directory 'screenshots' does not exist.")
-    except OSError as e:
-        print(f"Error while removing directory screenshots: {e}")
+        print(f"The directory '{screenshots_dir}' does not exist.")
+    except Exception as e:
+        print(f"Error while removing directory {screenshots_dir}: {e}")
 
     print("Removing voiceovers...")
+    voiceovers_dir = "voiceovers"
     try:
-        os.rmdir("voiceovers")
+        shutil.rmtree(voiceovers_dir)
+        print(f"Removed directory: {voiceovers_dir}")
     except FileNotFoundError:
-        print(f"The directory 'voiceovers' does not exist.")
-    except OSError as e:
-        print(f"Error while removing directory voiceovers: {e}")
+        print(f"The directory '{voiceovers_dir}' does not exist.")
+    except Exception as e:
+        print(f"Error while removing directory {voiceovers_dir}: {e}")
     endTime = time.time()
     print(f"Total time: {endTime - startTime}")
 

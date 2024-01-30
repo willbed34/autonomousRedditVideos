@@ -32,8 +32,15 @@ slow_voices = [
 ]
 
 gameplay_options = [
-    "cs go surfing free free to use",
-    "fortnite snipes free to use",
-    "minecraft parkour free free to use",
-    "roblox obby free to use"
+    "cs go surfing gameplay free to use",
+    "fortnite snipes gameplay free to use",
+    "minecraft parkour gameplay free free to use",
+    "roblox obby gameplay free to use",
+    "fall guys gameplay free to use"
+]
+
+question_reddits = [
+    "explainlikeimfive",
+    "askreddit",
+    "nostupidquestions"
 ]

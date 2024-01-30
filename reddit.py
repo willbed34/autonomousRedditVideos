@@ -19,6 +19,8 @@ MAX_WORDS_PER_COMMENT = int(config["Comments"]["MaxLength"])
 MIN_WORDS_PER_COMMENT = int(config["Comments"]["MinLength"])
 NUMBER_COMMENTS = int(config["Comments"]["NumberComments"])
 
+
+
 def getContent(outputDir, postOptionCount) -> VideoScript:
     reddit = __getReddit()
     existingPostIds = __getExistingPostIds(outputDir)
@@ -26,7 +28,9 @@ def getContent(outputDir, postOptionCount) -> VideoScript:
     now = int(time.time())
     autoSelect = postOptionCount == 0
     posts = []
-    for submission in reddit.subreddit(SUBREDDIT).top(time_filter="week", limit=postOptionCount*3 + 1):
+
+    subreddit = random.choice(constants.question_reddits)
+    for submission in reddit.subreddit(subreddit).top(time_filter="day", limit=postOptionCount*3 + 1):
         # if (f"{submission.id}.mp4" in existingPostIds or submission.over_18):
         if (f"{submission.id}.mp4" in existingPostIds):
             continue
