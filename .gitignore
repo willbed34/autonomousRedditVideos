@@ -5,3 +5,4 @@ background_videos/
 config.ini
 geckodriver.log
 __pycache__/
+picxReal_10.safetensors

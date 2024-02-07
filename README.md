@@ -32,3 +32,4 @@ General structure is based off of [RedditVideoGenerator](https://github.com/Shif
 - Maybe make dictionary, mapping subreddits to config specs. For isntance, 2 sentence horror would have diff config than askreddit.
 - ~~Put screenshots and voiceovers into subfolders for a given post~~ Instead I just delete these directories afterwards. DONE
 - If duration exceeds, don't return none, have it handle accordingly. DONE
+- Experiment with generating background images when in story model. This would require using a stable diffusion model, other methods don't really allow for downloads.
