@@ -47,10 +47,13 @@ def make_image(file_name, text, text_color, outline_color, text_size, line_spaci
 
 
     # Draw text with outlines
+    # Draw text with outlines
     for line in lines:
-        # w, h = draw.textsize(line)
-        # text_position = ((screen_width-w)/2, text_position[1])
-        draw.text(text_position, line, font=font, fill=text_color, stroke_width=1, stroke_fill=outline_color)
+        # Draw text with thicker outline
+        for i in range(-2, 3):
+            for j in range(-2, 3):
+                draw.text((text_position[0] + i, text_position[1] + j), line, font=font, fill=outline_color)
+        draw.text(text_position, line, font=font, fill=text_color)  # Draw the text itself
         text_position = (text_position[0], text_position[1] + line_height)  # Adjust Y position for the next line
 
     # Save the image

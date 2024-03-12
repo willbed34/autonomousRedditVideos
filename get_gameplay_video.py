@@ -5,8 +5,12 @@ import os
 import time
 import random
 from get_youtube_link import get_youtube_link
+import ssl
+
+# Disable SSL certificate verification
 
 def auto_download_and_crop_youtube_video(max_duration=60):
+    ssl._create_default_https_context = ssl._create_unverified_context
     output_dir = 'background_videos'
     os.makedirs(output_dir, exist_ok=True)
     files_count = len([f for f in os.listdir(output_dir) if os.path.isfile(os.path.join(output_dir, f))]) - 1

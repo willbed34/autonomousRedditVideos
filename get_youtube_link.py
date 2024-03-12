@@ -27,10 +27,11 @@ def time_to_seconds(time_str):
 
 def get_youtube_link():
     query = random.choice(constants.gameplay_options)
+    print("searching for "+ query + " video")
     results = YoutubeSearch(query, max_results=10).to_dict()
     for result in results:
         length_in_seconds = time_to_seconds(result["duration"])
-        if length_in_seconds < 60 or length_in_seconds > 600:
+        if length_in_seconds < 60 or length_in_seconds > 1200:
             print("video not right length")
             continue
         url = f"https://youtube.com{result['url_suffix']}"

@@ -1,12 +1,12 @@
-# Project Name
-
+# RedditBot
 General structure is based off of [RedditVideoGenerator](https://github.com/Shifty-The-Dev/RedditVideoGenerator).
 
 ## How to Use
 
-1. Use `get_gameplay_video` to download a Youtube background video under Creative Commons. It will save it in the `background_videos` directory. Specify the length of the video, and if you want just one background video created, or multiple (use multiple if the raw video is longer).
-2. In the config file, specify the Reddit client and secret, along with other parameters such as the number of comments you want to obtain and whether you want to manually select a post from a list. Also, specify a subreddit.
-3. Run `main.py`. This will get the Reddit post, generate images of the text, obtain voiceovers, and then compile everything on top of the background video.
+1. Make virtual environment : "python3 -m venv <NAME_OF_ENV>". Activate virtual environment: "source <NAME_OF_ENV>/bin/activate. Install dependencies: "pip install -r requirements.txt"
+2. Use `get_gameplay_video` to download a Youtube background video under Creative Commons. It will save it in the `background_videos` directory. Specify the length of the video, and if you want just one background video created, or multiple (use multiple if the raw video is longer).
+3. In the config file, specify the Reddit client and secret, along with other parameters such as the number of comments you want to obtain and whether you want to manually select a post from a list. Also, specify a subreddit.
+4. Run `main.py`. This will get the Reddit post, generate images of the text, obtain voiceovers, and then compile everything on top of the background video.
 
 ## Changes
 
@@ -23,6 +23,7 @@ General structure is based off of [RedditVideoGenerator](https://github.com/Shif
 - You may need to associate a YouTube account with this code for video downloads.
 - Create venv
 - Install dependencies as needed using `requirements.txt`.
+- This disables ssl when getting the video. Need to figure out why this is required now.
 
 ## TODO
 - Automate background video capturing, select from a few categories like csg surfing, minecraft, fortnite, gta, using selection or randomizing. Now, we don't need to store background videos. DONE

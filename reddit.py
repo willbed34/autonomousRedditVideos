@@ -6,7 +6,7 @@ import time
 from videoscript import VideoScript
 import configparser
 import random
-from profanity_check import predict, predict_prob
+# from profanity_check import predict, predict_prob
 import constants
 
 config = configparser.ConfigParser()
@@ -90,9 +90,9 @@ def __getContentFromPost(submission) -> VideoScript:
         if comment_text == "[deleted]":
             print("found a comment deleted")
             continue
-        if contains_curse_words(comment_text):
-            print(f"Skipping comment: {comment_text}")
-            continue
+        # if contains_curse_words(comment_text):
+        #     print(f"Skipping comment: {comment_text}")
+        #     continue
         comment_text = remove_links(comment_text)
         raw_text = markdown_to_text.markdown_to_text(comment_text)
         #if too many words
@@ -144,5 +144,5 @@ def remove_links(text):
     # Remove links from the text using regular expression
     return re.sub(r'http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\\(\\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+', '', text)
 
-def contains_curse_words(text):
-    return predict([text])[0] == 1
+# def contains_curse_words(text):
+#     return predict([text])[0] == 1
