@@ -1,4 +1,5 @@
 from youtube_search import YoutubeSearch
+from get_keywords import extract_keywords_from_title
 import constants
 import random
 
@@ -25,10 +26,10 @@ def time_to_seconds(time_str):
 
     return total_seconds
 
-def get_youtube_link():
-    query = random.choice(constants.gameplay_options)
-    print("searching for "+ query + " video")
-    results = YoutubeSearch(query, max_results=10).to_dict()
+def get_youtube_link(post_title):
+    search_query = extract_keywords_from_title(post_title)
+    print("searching for "+ search_query + " video")
+    results = YoutubeSearch(search_query, max_results=10).to_dict()
     for result in results:
         length_in_seconds = time_to_seconds(result["duration"])
         if length_in_seconds < 60 or length_in_seconds > 1200:

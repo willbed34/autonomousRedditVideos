@@ -106,7 +106,7 @@ def __getContentFromPost(submission) -> VideoScript:
             content.addCommentScene(new_comment, comment_id+str(new_id), voice_to_use)
 
         number_done += 1
-    return content
+    return content, submission.title
 
 def __getExistingPostIds(outputDir):
     files = os.listdir(outputDir)

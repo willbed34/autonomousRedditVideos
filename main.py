@@ -16,10 +16,10 @@ def createVideo():
     # Get script from reddit
     # If a post id is listed, use that. Otherwise query top posts
     if (len(sys.argv) == 2):
-        script = reddit.getContentFromId(outputDir, sys.argv[1])
+        script, script_title = reddit.getContentFromId(outputDir, sys.argv[1])
     else:
         postOptionCount = int(config["Reddit"]["NumberOfPostsToSelectFrom"])
-        script = reddit.getContent(outputDir, postOptionCount)
+        script, script_title = reddit.getContent(outputDir, postOptionCount)
     fileName = script.getFileName()
 
     # Create screenshots
@@ -28,7 +28,7 @@ def createVideo():
     # Setup background clip
     print("Getting background clip.")
     #trying automatically
-    bg_video_path  = auto_download_and_crop_youtube_video()
+    bg_video_path  = auto_download_and_crop_youtube_video(title_keyword=script_title)
     print("Getting this file path: ", bg_video_path)
     if bg_video_path == None:
         print("Couldn't find youtube vid link, going to predownloaded ones")
